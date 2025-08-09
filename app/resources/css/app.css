@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* for this element aria-label="Pagination Navigation" */
+nav[aria-label="Pagination Navigation"] .dark\:bg-gray-800 {
+    background-color: #f7f7f7 !important;
+}

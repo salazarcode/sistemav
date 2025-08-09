@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded', function() { document.querySelectorAll('img').forEach(function(img) { img.onerror = function() { if (this.src.includes('/storage/https://')) { this.src = this.src.replace(/^.*?\/storage\//, ''); } else { this.src = 'https://via.placeholder.com/300x150?text=Imagen+No+Disponible'; } this.onerror = null; }; }); });
