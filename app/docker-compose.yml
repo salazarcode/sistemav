@@ -1,39 +1,4 @@
-version: "3.8"
-
 services:
-    app:
-        build:
-            context: .
-            dockerfile: dockerfile
-        image: event_project_app:latest
-        container_name: event_project_app
-        depends_on:
-            - mysql
-        environment:
-            # Variables de Laravel
-            APP_ENV: production
-            APP_DEBUG: "false"
-            CACHE_DRIVER: file
-            SESSION_DRIVER: file
-            QUEUE_CONNECTION: sync
-            # Variables de base de datos para Laravel
-            DB_CONNECTION: mysql
-            DB_HOST: mysql
-            DB_PORT: "3306"
-            DB_DATABASE: laravel
-            DB_USERNAME: laravel
-            DB_PASSWORD: secret
-        volumes:
-            # Se monta la carpeta storage para persistencia
-            - storage:/var/www/storage
-        ports:
-            - "9000:80" # Mapeo del puerto 80 del contenedor (Apache) al 9000 del host
-        command: >
-            sh -c "until nc -z mysql 3306; do echo 'Waiting for MySQL...'; sleep 2; done;
-            if [ -z \"$(grep '^APP_KEY=' .env | cut -d '=' -f2)\" ]; then echo 'No APP_KEY detected, generating key...'; php artisan key:generate --force; fi;
-            php artisan migrate --force;
-            apache2-foreground"
-
     mysql:
         image: mysql:8
         container_name: event_project_mysql
@@ -45,8 +10,9 @@ services:
             MYSQL_PASSWORD: secret
         volumes:
             - dbdata:/var/lib/mysql
+            - ./u180743896_laravel.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
         ports:
-            - "3306:3306"
+            - "3310:3306"
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
