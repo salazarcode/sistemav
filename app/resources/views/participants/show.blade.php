@@ -139,17 +139,6 @@
                                     @endif
                                 </p>
                             </div>
-                            
-                            <div class="mb-4">
-                                <h4 class="text-sm font-medium text-gray-500">{{ __('Dirección') }}</h4>
-                                <p>
-                                    @if(isset($personalData))
-                                        {{ $personalData->address ?? __('No registrada') }}
-                                    @else
-                                        {{ $participant->address ?? __('No registrada') }}
-                                    @endif
-                                </p>
-                            </div>
                             </div>
                         </div>
                     </div>

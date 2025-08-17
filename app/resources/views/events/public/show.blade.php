@@ -152,15 +152,6 @@
                                             @enderror
                                         </div>
                                         
-                                        <!-- Address -->
-                                        <div class="mb-4">
-                                            <label for="address" class="block text-sm font-medium text-gray-700">{{ __('Dirección:') }}</label>
-                                            <input type="text" id="address" name="address" value="{{ old('address') }}" required
-                                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                            @error('address')
-                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                            @enderror
-                                        </div>
                                         
                                         <!-- Gender -->
                                         <div class="mb-4">
