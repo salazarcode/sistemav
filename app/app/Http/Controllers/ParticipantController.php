@@ -48,20 +48,30 @@ class ParticipantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request, Event $event = null)
     {
         $user = Auth::user();
         
-        // Get all supervised users (direct and indirect)
-        $supervisedUsers = $user->all_supervised_users;
-        $userIds = $supervisedUsers->pluck('id')->push($user->id)->toArray();
-        
-        // Get events from user and all supervised users
-        $events = Event::whereIn('user_id', $userIds)->pluck('id');
-        
-        // Start the query
-        $query = Participant::whereIn('event_id', $events)
-            ->with(['event', 'personalData']);
+        // Check if we're filtering by a specific event
+        if ($event) {
+            // Verify user has permission to view this event
+            $this->authorize('view', $event);
+            
+            // Start query filtered by this specific event
+            $query = Participant::where('event_id', $event->id)
+                ->with(['event', 'personalData']);
+        } else {
+            // Get all supervised users (direct and indirect)
+            $supervisedUsers = $user->all_supervised_users;
+            $userIds = $supervisedUsers->pluck('id')->push($user->id)->toArray();
+            
+            // Get events from user and all supervised users
+            $events = Event::whereIn('user_id', $userIds)->pluck('id');
+            
+            // Start the query for all events the user can access
+            $query = Participant::whereIn('event_id', $events)
+                ->with(['event', 'personalData']);
+        }
         
         // Apply search filter if provided
         if ($request->has('search') && !empty($request->search)) {
@@ -122,7 +132,8 @@ class ParticipantController extends Controller
             
         $perPageOptions = [10, 25, 50, 100];
         
-        return view('participants.index', compact('participants', 'perPageOptions'));
+        // Always return the same view, passing event if available
+        return view('participants.index', compact('participants', 'perPageOptions', 'event'));
     }
 
     /**
