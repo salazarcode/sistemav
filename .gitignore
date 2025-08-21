@@ -1,6 +1,5 @@
 /app/.phpunit.cache
 /app/node_modules
-/app/public/build
 /app/public/hot
 /app/vendor
 .env
