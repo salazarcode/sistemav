@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-08-2025 a las 18:27:27
+-- Tiempo de generación: 21-08-2025 a las 22:52:46
 -- Versión del servidor: 10.11.10-MariaDB-log
 -- Versión de PHP: 7.2.34
 
@@ -42,7 +42,9 @@ CREATE TABLE `assists` (
 INSERT INTO `assists` (`id`, `start_date`, `end_date`, `created_at`, `updated_at`) VALUES
 (1, '2025-07-22 14:00:50', '2025-07-22 14:00:50', '2025-07-22 14:00:50', '2025-07-22 14:00:50'),
 (2, '2025-07-30 13:53:47', '2025-07-30 13:53:47', '2025-07-30 13:53:47', '2025-07-30 13:53:47'),
-(3, '2025-07-30 14:04:18', '2025-07-30 14:04:18', '2025-07-30 14:04:18', '2025-07-30 14:04:18');
+(3, '2025-07-30 14:04:18', '2025-07-30 14:04:18', '2025-07-30 14:04:18', '2025-07-30 14:04:18'),
+(4, '2025-08-19 14:44:38', '2025-08-19 14:44:38', '2025-08-19 14:44:38', '2025-08-19 14:44:38'),
+(5, '2025-08-19 15:05:42', '2025-08-19 15:05:42', '2025-08-19 15:05:42', '2025-08-19 15:05:42');
 
 -- --------------------------------------------------------
 
@@ -295,7 +297,11 @@ CREATE TABLE `participants` (
 INSERT INTO `participants` (`id`, `event_id`, `personal_data_id`, `assists_id`, `created_at`, `updated_at`, `name`, `last_name`, `phone`, `attendance`, `dni`, `address`, `birth_date`, `gender`, `institution`, `profession`, `education_level`, `ticket_type`, `seat_number`, `team`, `category`, `participant_type`, `age`) VALUES
 (1, 1, 2, 1, '2025-07-22 14:00:34', '2025-07-22 14:00:50', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (4, 4, 4, 2, '2025-07-30 13:53:23', '2025-07-30 13:53:47', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(5, 5, 3, 3, '2025-07-30 14:04:00', '2025-07-30 14:04:18', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(5, 5, 3, 3, '2025-07-30 14:04:00', '2025-07-30 14:04:18', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(6, 7, 5, NULL, '2025-08-17 22:18:36', '2025-08-17 22:18:36', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(7, 6, 6, 4, '2025-08-19 14:44:26', '2025-08-19 14:44:38', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(8, 7, 8, NULL, '2025-08-19 14:57:36', '2025-08-19 14:57:36', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(9, 9, 9, 5, '2025-08-19 15:03:58', '2025-08-19 15:05:42', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -382,7 +388,12 @@ INSERT INTO `personal_data` (`id`, `name`, `last_name`, `phone`, `email`, `sex`,
 (1, 'Santiago Isaac Salazar Martínez', 'Salazar Martínez', '+584123275955', NULL, 'M', '2022-07-05', '27783053', 'ID', '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
 (2, 'Mengano', 'Fulano', '04123275955', NULL, 'M', '2025-07-01', '111111', 'E', '2025-07-22 14:00:34', '2025-07-22 14:00:34'),
 (3, 'rebreyne', 'espinoza', '04141826792', NULL, 'M', '2006-09-12', '31777132', 'V', '2025-07-30 13:39:37', '2025-07-30 13:39:37'),
-(4, 'ADRIANY', 'GONZALES', '04140191397', NULL, 'F', '1998-07-08', '30430356', 'V', '2025-07-30 13:40:24', '2025-07-30 13:40:24');
+(4, 'ADRIANY', 'GONZALES', '04140191397', NULL, 'F', '1998-07-08', '30430356', 'V', '2025-07-30 13:40:24', '2025-07-30 13:40:24'),
+(5, 'ANDRES', 'SALAZAR', '0111540995364', 'andres.salazar@salazarcode.net', 'M', '2025-08-12', '19607174', 'V', '2025-08-17 22:18:36', '2025-08-17 22:18:36'),
+(6, 'Santiago Isaac', 'Salazar Martínez', '04123275955', 'santiagosalazar.dev@gmail.com', 'M', '2025-08-13', '12312123', 'V', '2025-08-19 14:44:26', '2025-08-19 14:44:26'),
+(7, 'Mengano', 'Fulanito', '04123275955', NULL, 'M', NULL, '2323232323', 'V', '2025-08-19 14:52:22', '2025-08-19 14:52:22'),
+(8, 'Valentina', 'Salazar', '04122222222', 'yeinarsalazar@gmail.com', 'F', '1998-05-09', '26333555', 'V', '2025-08-19 14:57:36', '2025-08-19 14:57:36'),
+(9, 'Yeinar', 'Salazar', '0412000000', 'yeinarsalazar@gmail.com', 'F', '1998-05-09', '26483277', 'V', '2025-08-19 15:03:58', '2025-08-19 15:03:58');
 
 -- --------------------------------------------------------
 
@@ -397,6 +408,13 @@ CREATE TABLE `plain_passwords` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `plain_passwords`
+--
+
+INSERT INTO `plain_passwords` (`id`, `user_id`, `plain_password`, `created_at`, `updated_at`) VALUES
+(1, 2, 'password', '2025-08-19 14:52:22', '2025-08-19 14:52:22');
 
 -- --------------------------------------------------------
 
@@ -445,7 +463,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `user_name`, `email_verified_at`, `password`, `organizations_id`, `parent_id`, `preferences`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'santiagosalazar.dev@gmail.com', 'santiagosalazar.dev@gmail.com', NULL, '$2y$10$sqKiVRcscoDVvESDlDjvm.VUSvw0RC90VrjloPr5T69rkkTK7Oine', 1, NULL, NULL, NULL, '2025-07-22 13:59:01', '2025-07-22 13:59:01');
+(1, 'santiagosalazar.dev@gmail.com', 'santiagosalazar.dev@gmail.com', NULL, '$2y$10$sqKiVRcscoDVvESDlDjvm.VUSvw0RC90VrjloPr5T69rkkTK7Oine', 1, NULL, NULL, NULL, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
+(2, 'mengano@gmail.com', 'mengano', NULL, '$2y$10$pjFA/BuE.FfyB/WCOFPJPuM4zGV/uP8ym4lK7xJsYgE5g2vzAGXMO', 14, 1, NULL, NULL, '2025-08-19 14:52:22', '2025-08-19 14:52:22');
 
 -- --------------------------------------------------------
 
@@ -467,7 +486,8 @@ CREATE TABLE `users_personal_data` (
 --
 
 INSERT INTO `users_personal_data` (`id`, `user_id`, `personal_data_id`, `active`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2025-07-22 13:59:01', '2025-07-22 13:59:01');
+(1, 1, 1, 1, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
+(2, 2, 7, 1, '2025-08-19 14:52:22', '2025-08-19 14:52:22');
 
 -- --------------------------------------------------------
 
@@ -488,7 +508,8 @@ CREATE TABLE `users_roles` (
 --
 
 INSERT INTO `users_roles` (`id`, `user_id`, `roles_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-07-22 13:59:01', '2025-07-22 13:59:01');
+(1, 1, 1, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
+(2, 2, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -515,7 +536,12 @@ INSERT INTO `user_permissions` (`id`, `user_id`, `permissions_id`, `created_at`,
 (4, 1, 4, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
 (5, 1, 5, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
 (6, 1, 6, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
-(7, 1, 7, '2025-07-22 13:59:01', '2025-07-22 13:59:01');
+(7, 1, 7, '2025-07-22 13:59:01', '2025-07-22 13:59:01'),
+(8, 2, 1, NULL, NULL),
+(9, 2, 4, NULL, NULL),
+(10, 2, 5, NULL, NULL),
+(11, 2, 6, NULL, NULL),
+(12, 2, 7, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -658,7 +684,7 @@ ALTER TABLE `user_permissions`
 -- AUTO_INCREMENT de la tabla `assists`
 --
 ALTER TABLE `assists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `categories`
@@ -700,7 +726,7 @@ ALTER TABLE `organizations`
 -- AUTO_INCREMENT de la tabla `participants`
 --
 ALTER TABLE `participants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `permissions`
@@ -718,13 +744,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `personal_data`
 --
 ALTER TABLE `personal_data`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `plain_passwords`
 --
 ALTER TABLE `plain_passwords`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -736,25 +762,25 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users_personal_data`
 --
 ALTER TABLE `users_personal_data`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users_roles`
 --
 ALTER TABLE `users_roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user_permissions`
 --
 ALTER TABLE `user_permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
