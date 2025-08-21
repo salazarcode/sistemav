@@ -12,12 +12,10 @@ class Participant extends Model
     protected $fillable = [
         'name',
         'last_name',
-        'email',
         'phone',
         'event_id',
         'attendance',
         'dni',
-        'address',
         'age',
         'gender',
         'institution',

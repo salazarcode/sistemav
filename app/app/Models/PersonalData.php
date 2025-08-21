@@ -14,7 +14,6 @@ class PersonalData extends Model
         'name',
         'last_name',
         'phone',
-        'address',
         'sex',
         'birth_date',
         'dni',
