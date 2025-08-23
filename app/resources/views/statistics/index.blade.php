@@ -42,7 +42,7 @@
     </style>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
             @if (session('success'))
                 <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 flex items-center" role="alert">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -214,15 +214,15 @@
                         </div>
                         
                         <div class="mt-6 flex justify-end space-x-3">
-                            <div class="flex gap-2">
-                                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center">
+                            <div class="flex flex-col md:flex-row gap-2 w-full justify-end">
+                                <button type="submit" class="flex w-full md:w-[fit-content] px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                                     </svg>
                                     {{ __('Aplicar Filtros') }}
                                 </button>
                                 
-                                    <a href="{{ route('statistics.index', ['force_refresh' => 'true']) }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 inline-block">
+                                    <a href="{{ route('statistics.index', ['force_refresh' => 'true']) }}" class="flex w-full md:w-[fit-content] px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 inline-block">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
@@ -285,7 +285,7 @@
                         </div>
                     </div>
                     
-                    <div class="flex justify-end space-x-4 mb-4">
+                    <div class="flex flex-col md:flex-row gap-2 w-full justify-end my-4">
                         @if($hasReportPermission)
                             <form action="{{ route('statistics.download-excel') }}" method="POST" class="inline" id="excel-form">
                                 @csrf
@@ -293,7 +293,7 @@
                                 <input type="hidden" name="date_from" value="{{ request('date_from') }}">
                                 <input type="hidden" name="date_to" value="{{ request('date_to') }}">
                                 <input type="hidden" name="chart_images" id="excel-chart-images-input">
-                                <button type="button" id="download-excel-btn" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                <button type="button" id="download-excel-btn" class="flex w-full md:w-[fit-content]  inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
@@ -307,7 +307,10 @@
                                 <input type="hidden" name="date_from" value="{{ request('date_from') }}">
                                 <input type="hidden" name="date_to" value="{{ request('date_to') }}">
                                 <input type="hidden" name="chart_images" id="chart-images-input">
-                                <button type="button" id="download-pdf-btn" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                <button type="button" id="download-pdf-btn" class="flex w-full md:w-[fit-content] inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>    
                                     {{ __('Descargar PDF') }}
                                 </button>
                             </form>
@@ -320,7 +323,7 @@
                     </form>
                     
                     <!-- Switches para controlar la visualización de las gráficas -->
-                    <div class="mt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <div class="flex flex-col md:flex-rowmt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
                         <h3 class="text-lg font-semibold text-gray-700 mb-3">{{ __('Opciones de visualización') }}</h3>
                         
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -460,27 +463,12 @@
                 </div>
             </div>
             
-            <!-- NUEVA SECCIÓN: Participantes por Categoría, Organización y Mes -->
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">{{ __('Análisis Cruzado de Participantes') }}</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <!-- Participantes por Categoría -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">{{ __('Participantes por Categoría') }}</h2>
-                        <div class="chart-container" style="position: relative; height:350px;">
-                            <canvas id="categoryParticipantsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Participantes por Organización -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">{{ __('Participantes por Organización') }}</h2>
-                        <div class="chart-container" style="position: relative; height:350px;">
-                            <canvas id="organizationParticipantsChart"></canvas>
-                        </div>
+            <!-- Participantes por Categoría -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">{{ __('Participantes por Categoría') }}</h2>
+                    <div class="chart-container" style="position: relative; height:350px;">
+                        <canvas id="categoryParticipantsChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -497,7 +485,7 @@
                 </svg>
                 <h3 class="mt-4 text-lg font-medium text-gray-900">Generando PDF</h3>
                 <p class="mt-2 text-sm text-gray-500">Su PDF se está generando y comenzará a descargarse automáticamente. Por favor, espere pacientemente a que se complete la descarga.</p>
-                <button id="close-pdf-modal" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                <button id="close-pdf-modal" class="mt-4 flex w-max px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap">
                     Cerrar
                 </button>
             </div>

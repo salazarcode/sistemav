@@ -7,7 +7,7 @@
             <div class="flex space-x-2">
                 <!-- Si el usuario es el creador del evento o el supervisor del usuario que creó el evento y ademas tiene permisos para editar eventos, puede editar el evento -->
                 @if(auth()->user()->id == $event->user_id || auth()->user()->id == $event->user->supervisor_id && auth()->user()->permissions->contains('name', 'edit_event'))
-                <a href="{{ route('events.edit', $event) }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                <a href="{{ route('events.edit', $event) }}" class="flex w-max px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
@@ -31,7 +31,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
             @if (session('success'))
                 <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 flex items-center" role="alert">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -161,7 +161,7 @@
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="flex gap-2 justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold">{{ __('Participantes') }} ({{ $participants->total() }})</h3>
                         <div class="flex space-x-2">
                             <a href="{{ route('events.participants.index', $event) }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
@@ -191,7 +191,7 @@
                                 <input type="text" name="search" placeholder="{{ __('Buscar por nombre, identificación, email o teléfono...') }}" value="{{ request('search') }}" 
                                     class="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
-                            <button type="submit" class="ml-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                            <button type="submit" class="ml-2 flex w-max px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap">
                                 {{ __('Buscar') }}
                             </button>
                             @if(request('search'))
