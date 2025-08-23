@@ -34,20 +34,20 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="flex justify-between items-center mb-6">
+                    <div class="flex flex-col md:flex-row gap-2 justify-between mb-6">
                         <h2 class="text-lg font-medium text-gray-900">
                             {{ __('Listado de Participantes') }}
                         </h2>
                         @if(isset($event))
-                            <div class="flex space-x-2">
-                                <a href="{{ route('events.show', $event) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            <div class="flex flex-col md:flex-row gap-2 justify-between">
+                                <a href="{{ route('events.show', $event) }}" class="w-full md:w-max inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                                     </svg>
                                     {{ __('Volver al Evento') }}
                                 </a>
                                 @can('update', $event)
-                                    <a href="{{ route('events.participants.create', $event) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                                    <a href="{{ route('events.participants.create', $event) }}" class="w-full md:w-max inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" style="margin-left: 0px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                         </svg>

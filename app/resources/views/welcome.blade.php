@@ -24,25 +24,25 @@
                             <img src="{{ asset('images/logos/sistema_victoria--large-logo.jpg') }}" alt="Sistema Victoria" class="h-12 mr-2" />
                         </h1>
                         <div>
-            @if (Route::has('login'))
+                            @if (Route::has('login'))
                                 <div class="space-x-4">
-                    @auth
+                                    @auth
                                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-300 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">
                                             {{ __('Panel de Control') }}
                                         </a>
-                    @else
+                                    @else
                                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">
                                             {{ __('Iniciar Sesión') }}
                                         </a>
 
-                        @if (Route::has('register') && !\App\Models\User::whereHas('roles', function($query) { $query->where('name', 'master'); })->exists())
+                                        @if (Route::has('register') && !\App\Models\User::whereHas('roles', function($query) { $query->where('name', 'master'); })->exists())
                                             <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-indigo-500">
                                                 {{ __('Registrarse') }}
                                             </a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                                        @endif
+                                    @endauth
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
