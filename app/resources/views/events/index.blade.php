@@ -189,7 +189,7 @@
             <!-- Opciones de visualización -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
                         <h3 class="text-lg font-semibold">{{ __('Opciones de visualización') }}</h3>
                         
                         <div class="flex flex-wrap gap-6">

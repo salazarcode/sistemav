@@ -323,7 +323,7 @@
                     </form>
                     
                     <!-- Switches para controlar la visualización de las gráficas -->
-                    <div class="mt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
+                    <div class="flex flex-col md:flex-rowmt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
                         <h3 class="text-lg font-semibold text-gray-700 mb-3">{{ __('Opciones de visualización') }}</h3>
                         
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
