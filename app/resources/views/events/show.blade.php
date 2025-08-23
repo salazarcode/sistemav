@@ -1,26 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="flex flex-wrap gap-4 justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
                 {{ $event->name }}
             </h2>
-            <div class="flex space-x-2">
+            <div class="flex space-x-2 flex-wrap gap-2">
                 <!-- Si el usuario es el creador del evento o el supervisor del usuario que creó el evento y ademas tiene permisos para editar eventos, puede editar el evento -->
                 @if(auth()->user()->id == $event->user_id || auth()->user()->id == $event->user->supervisor_id && auth()->user()->permissions->contains('name', 'edit_event'))
-                <a href="{{ route('events.edit', $event) }}" class="flex w-max px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap">
+                <a href="{{ route('events.edit', $event) }}" class="flex w-full md:w-max px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 whitespace-nowrap">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                     {{ __('Editar Evento') }}
                 </a>
                 @endif
-                <a href="{{ route('events.participants.create', $event) }}" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                <a href="{{ route('events.participants.create', $event) }}" class="px-4 w-full md:w-max py-2 bg-green-600 text-white rounded-md hover:bg-green-700" style="margin-left: 0px;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
                     {{ __('Agregar Participante') }}
                 </a>
-                <a href="{{ route('events.public.show', $event->slug) }}" target="_blank" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                <a href="{{ route('events.public.show', $event->slug) }}" target="_blank" class="px-4 w-full md:w-max py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" style="margin-left: 0px;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
@@ -161,16 +161,16 @@
             
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <div class="flex gap-2 justify-between items-center mb-4">
+                    <div class="flex flex-col md:flex-row gap-2 justify-between mb-4">
                         <h3 class="text-lg font-semibold">{{ __('Participantes') }} ({{ $participants->total() }})</h3>
-                        <div class="flex space-x-2">
-                            <a href="{{ route('events.participants.index', $event) }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                        <div class="flex space-x-2 flex-wrap gap-2">
+                            <a href="{{ route('events.participants.index', $event) }}" class="px-4 w-full md:w-max py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
                                 {{ __('Ver todos') }}
                             </a>
-                            <button id="export-participants-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            <button id="export-participants-btn" class="px-4 w-full md:w-max py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-left" style="margin-left: 0px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
