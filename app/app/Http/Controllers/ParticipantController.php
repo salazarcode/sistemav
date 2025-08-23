@@ -284,8 +284,11 @@ class ParticipantController extends Controller
             'end_date' => now(),
         ]);
         
-        // Update participant with attendance record
-        $participant->update(['assists_id' => $assist->id]);
+        // Update participant with attendance record and mark attendance as true
+        $participant->update([
+            'assists_id' => $assist->id,
+            'attendance' => true
+        ]);
         
         return redirect()->back()
                          ->with('success', 'Asistencia registrada exitosamente.');
