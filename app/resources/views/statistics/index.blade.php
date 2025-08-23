@@ -285,7 +285,7 @@
                         </div>
                     </div>
                     
-                    <div class="flex justify-end space-x-4 mb-4">
+                    <div class="flex justify-end space-x-4 mb-4 my-3">
                         @if($hasReportPermission)
                             <form action="{{ route('statistics.download-excel') }}" method="POST" class="inline" id="excel-form">
                                 @csrf

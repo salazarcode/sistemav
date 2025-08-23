@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4">
         <div class="flex flex-col items-center">
             <div class="mb-4">
-                <img src="{{ asset('images/logos/sistema_victoria--footer.jpg') }}" alt="Sistema Victoria" class="h-16" />
+                <img src="{{ asset('images/logos/sistema_victoria--footer.jpg') }}" alt="Sistema Victoria" class="w-full max-w-[500px]" />
             </div>
             <div class="text-center text-gray-600 text-sm">
                 &copy; {{ date('Y') }} Sistema Victoria. Todos los derechos reservados.

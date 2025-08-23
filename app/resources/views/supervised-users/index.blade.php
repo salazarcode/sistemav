@@ -224,7 +224,7 @@
             <!-- Vista de lista -->
             <div id="list-view" class="{{ (Auth::user()->preferences['supervisedUsers_view_type'] ?? 'list') === 'list' ? 'block' : 'hidden' }}">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="p-6 bg-white border-b border-gray-200 overflow-x-auto">
                         @if ($supervisedUsers->count() > 0)
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
