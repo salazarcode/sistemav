@@ -132,35 +132,40 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($participants as $participant)
+                                    @php
+                                        // Determine if we're dealing with Participant (event-specific) or PersonalData (global)
+                                        $personalData = isset($event) ? $participant->personalData : $participant;
+                                        $participantRecord = isset($event) ? $participant : null;
+                                    @endphp
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-indigo-100 rounded-full">
                                                     <span class="text-indigo-800 font-medium text-sm">
-                                                        {{ strtoupper(substr($participant->personalData->name, 0, 1) . substr($participant->personalData->last_name, 0, 1)) }}
+                                                        {{ strtoupper(substr($personalData->name, 0, 1) . substr($personalData->last_name, 0, 1)) }}
                                                     </span>
                                                 </div>
                                                 <div class="ml-4">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $participant->personalData->name }} {{ $participant->personalData->last_name }}
+                                                        {{ $personalData->name }} {{ $personalData->last_name }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                {{ $participant->personalData->type_dni ?? '' }} {{ $participant->personalData->dni ?? 'N/A' }}
+                                                {{ $personalData->type_dni ?? '' }} {{ $personalData->dni ?? 'N/A' }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $participant->personalData->phone }}</div>
+                                            <div class="text-sm text-gray-900">{{ $personalData->phone }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $participant->personalData->email ?? 'No registrado' }}</div>
+                                            <div class="text-sm text-gray-900">{{ $personalData->email ?? 'No registrado' }}</div>
                                         </td>
                                         @if(isset($event))
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                @if ($participant->assist)
+                                                @if ($participantRecord->assist)
                                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -169,7 +174,7 @@
                                                     </span>
                                                 @else
                                                     @can('update', $event)
-                                                        <form action="{{ route('events.participants.attendance', [$event, $participant]) }}" method="POST" class="inline">
+                                                        <form action="{{ route('events.participants.attendance', [$event, $participantRecord]) }}" method="POST" class="inline">
                                                             @csrf
                                                             <button type="submit" class="text-indigo-600 hover:text-indigo-900">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -186,13 +191,13 @@
                                         @else
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                                    {{ $participant->events_count }}
+                                                    {{ $personalData->events_count }}
                                                 </span>
                                             </td>
                                         @endif
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             @if(isset($event))
-                                                <a href="{{ route('events.participants.show', [$event, $participant]) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">
+                                                <a href="{{ route('events.participants.show', [$event, $participantRecord]) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -200,7 +205,7 @@
                                                     {{ __('Ver') }}
                                                 </a>
                                                 @can('update', $event)
-                                                    <form action="{{ route('events.participants.destroy', [$event, $participant]) }}" method="POST" class="inline">
+                                                    <form action="{{ route('events.participants.destroy', [$event, $participantRecord]) }}" method="POST" class="inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('¿Estás seguro de eliminar este participante?')">
@@ -212,7 +217,7 @@
                                                     </form>
                                                 @endcan
                                             @else
-                                                <a href="{{ route('participants.show', $participant->personalData) }}" class="text-indigo-600 hover:text-indigo-900">
+                                                <a href="{{ route('participants.show', $personalData) }}" class="text-indigo-600 hover:text-indigo-900">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

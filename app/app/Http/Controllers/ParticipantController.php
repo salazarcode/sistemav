@@ -43,6 +43,47 @@ class ParticipantController extends Controller
     }
 
     /**
+     * Apply search filters to PersonalData query
+     */
+    private function applySearchToPersonalData($query, $searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm)
+    {
+        $query->where(function($subQuery) use ($searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm) {
+            // Búsqueda por términos individuales
+            foreach ($searchTerms as $index => $term) {
+                $normalizedTerm = $normalizedSearchTerms[$index] ?? $term;
+                
+                $subQuery->where(function($termQuery) use ($term, $normalizedTerm) {
+                    $likeTerm = '%' . strtolower($term) . '%';
+                    $normalizedLikeTerm = '%' . strtolower($normalizedTerm) . '%';
+                    
+                    // Búsqueda básica en campos principales
+                    $termQuery->whereRaw('LOWER(name) LIKE ?', [$likeTerm])
+                            ->orWhereRaw('LOWER(last_name) LIKE ?', [$likeTerm])
+                            ->orWhereRaw('LOWER(dni) LIKE ?', [$likeTerm])
+                            ->orWhereRaw('LOWER(email) LIKE ?', [$likeTerm])
+                            ->orWhereRaw('LOWER(phone) LIKE ?', [$likeTerm]);
+                    
+                    // Si el término tiene acentos, también buscar con el término normalizado
+                    if ($term !== $normalizedTerm) {
+                        $termQuery->orWhereRaw('LOWER(name) LIKE ?', [$normalizedLikeTerm])
+                                ->orWhereRaw('LOWER(last_name) LIKE ?', [$normalizedLikeTerm]);
+                    }
+                });
+            }
+            
+            // Búsqueda por nombre completo
+            $fullNameLike = '%' . strtolower($searchTerm) . '%';
+            $subQuery->orWhereRaw("CONCAT(LOWER(name), ' ', LOWER(last_name)) LIKE ?", [$fullNameLike]);
+            
+            // Si el término tiene acentos, también buscar con el término normalizado
+            if ($searchTerm !== $normalizedSearchTerm) {
+                $normalizedFullNameLike = '%' . strtolower($normalizedSearchTerm) . '%';
+                $subQuery->orWhereRaw("CONCAT(LOWER(name), ' ', LOWER(last_name)) LIKE ?", [$normalizedFullNameLike]);
+            }
+        });
+    }
+
+    /**
      * Display a listing of the participants.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -68,9 +109,13 @@ class ParticipantController extends Controller
             // Get events from user and all supervised users
             $events = Event::whereIn('user_id', $userIds)->pluck('id');
             
-            // Start the query for all events the user can access
-            $query = Participant::whereIn('event_id', $events)
-                ->with(['event', 'personalData']);
+            // For global listing, we want unique participants (PersonalData)
+            // Start with PersonalData that have participants in accessible events
+            $query = PersonalData::whereHas('participants', function($q) use ($events) {
+                $q->whereIn('event_id', $events);
+            })->with(['participants' => function($q) use ($events) {
+                $q->whereIn('event_id', $events)->with('event');
+            }]);
         }
         
         // Apply search filter if provided
@@ -82,50 +127,33 @@ class ParticipantController extends Controller
             $searchTerms = preg_split('/\s+/', $searchTerm, -1, PREG_SPLIT_NO_EMPTY);
             $normalizedSearchTerms = preg_split('/\s+/', $normalizedSearchTerm, -1, PREG_SPLIT_NO_EMPTY);
             
-            $query->whereHas('personalData', function($q) use ($searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm) {
-                $q->where(function($query) use ($searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm) {
-                    // Búsqueda por términos individuales
-                    foreach ($searchTerms as $index => $term) {
-                        $normalizedTerm = $normalizedSearchTerms[$index] ?? $term;
-                        
-                        $query->where(function($subQuery) use ($term, $normalizedTerm) {
-                            $likeTerm = '%' . strtolower($term) . '%';
-                            $normalizedLikeTerm = '%' . strtolower($normalizedTerm) . '%';
-                            
-                            // Búsqueda básica en campos principales
-                            $subQuery->whereRaw('LOWER(name) LIKE ?', [$likeTerm])
-                                    ->orWhereRaw('LOWER(last_name) LIKE ?', [$likeTerm])
-                                    ->orWhereRaw('LOWER(dni) LIKE ?', [$likeTerm])
-                                    ->orWhereRaw('LOWER(email) LIKE ?', [$likeTerm])
-                                    ->orWhereRaw('LOWER(phone) LIKE ?', [$likeTerm]);
-                            
-                            // Si el término tiene acentos, también buscar con el término normalizado
-                            if ($term !== $normalizedTerm) {
-                                $subQuery->orWhereRaw('LOWER(name) LIKE ?', [$normalizedLikeTerm])
-                                        ->orWhereRaw('LOWER(last_name) LIKE ?', [$normalizedLikeTerm]);
-                            }
-                        });
-                    }
-                    
-                    // Búsqueda por nombre completo
-                    $fullNameLike = '%' . strtolower($searchTerm) . '%';
-                    $query->orWhereRaw("CONCAT(LOWER(name), ' ', LOWER(last_name)) LIKE ?", [$fullNameLike]);
-                    
-                    // Si el término tiene acentos, también buscar con el término normalizado
-                    if ($searchTerm !== $normalizedSearchTerm) {
-                        $normalizedFullNameLike = '%' . strtolower($normalizedSearchTerm) . '%';
-                        $query->orWhereRaw("CONCAT(LOWER(name), ' ', LOWER(last_name)) LIKE ?", [$normalizedFullNameLike]);
-                    }
+            if ($event) {
+                // For event-specific listing, search in participants' personalData
+                $query->whereHas('personalData', function($q) use ($searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm) {
+                    $this->applySearchToPersonalData($q, $searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm);
                 });
-            });
+            } else {
+                // For global listing, search directly in PersonalData
+                $query->where(function($q) use ($searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm) {
+                    $this->applySearchToPersonalData($q, $searchTerms, $searchTerm, $normalizedSearchTerms, $normalizedSearchTerm);
+                });
+            }
         }
         
         // Add a count of events for each personal_data_id
-        $query->addSelect(['events_count' => function ($query) {
-            $query->selectRaw('COUNT(*)')
-                ->from('participants as p')
-                ->whereColumn('p.personal_data_id', 'participants.personal_data_id');
-        }]);
+        if ($event) {
+            // For event-specific listing, add events count for participants
+            $query->addSelect(['events_count' => function ($subQuery) {
+                $subQuery->selectRaw('COUNT(*)')
+                    ->from('participants as p')
+                    ->whereColumn('p.personal_data_id', 'participants.personal_data_id');
+            }]);
+        } else {
+            // For global listing, add events count for PersonalData
+            $query->withCount(['participants as events_count' => function ($subQuery) use ($events) {
+                $subQuery->whereIn('event_id', $events);
+            }]);
+        }
         
         // Get participants (with pagination)
         $participants = $query->paginate($request->input('per_page', 10));
