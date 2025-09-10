@@ -14,12 +14,6 @@
                     {{ __('Editar Evento') }}
                 </a>
                 @endif
-                <a href="{{ route('events.participants.create', $event) }}" class="px-4 w-full md:w-max py-2 bg-green-600 text-white rounded-md hover:bg-green-700" style="margin-left: 0px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                    </svg>
-                    {{ __('Agregar Participante') }}
-                </a>
                 <a href="{{ route('events.public.show', $event->slug) }}" target="_blank" class="px-4 w-full md:w-max py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" style="margin-left: 0px;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -176,6 +170,12 @@
                                 </svg>
                                 {{ __('Exportar') }}
                             </button>
+                            <a href="{{ route('events.participants.create', $event) }}" class="px-4 w-full md:w-max py-2 bg-green-600 text-white rounded-md hover:bg-green-700" style="margin-left: 0px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                                {{ __('Agregar Participante') }}
+                            </a>
                         </div>
                     </div>
                     

@@ -107,7 +107,7 @@
                         <div class="md:col-span-1">
                             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                 <div class="p-6">
-                                    <h2 class="text-xl font-semibold mb-4">{{ __('Registro') }}</h2>
+                                    <h2 class="text-xl font-semibold mb-4">{{ __('Registro de participante') }}</h2>
                                     
                                     <form action="{{ route('events.public.register', $event->slug) }}" method="POST">
                                         @csrf
