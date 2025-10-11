@@ -1,7 +1,7 @@
-/app/.phpunit.cache
-/app/node_modules
-/app/public/hot
-/app/vendor
+.phpunit.cache
+node_modules
+public/hot
+vendor
 .env
 .env.backup
 .env.production
