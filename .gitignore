@@ -1,7 +1,9 @@
-/app/.phpunit.cache
-/app/node_modules
-/app/public/hot
-/app/vendor
+.phpunit.cache
+node_modules
+public/hot
+public/build
+public/storage
+vendor
 .env
 .env.backup
 .env.production
@@ -13,3 +15,4 @@ yarn-error.log
 .fleet
 .idea
 .vscode
+node_modules

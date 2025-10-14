@@ -164,7 +164,7 @@ class ParticipantController extends Controller
         $this->authorize('view', $event);
         
         // Check if participant belongs to the event
-        if ($participant->event_id !== $event->id) {
+        if ($participant->event_id != $event->id) {
             abort(404);
         }
         
@@ -268,8 +268,8 @@ class ParticipantController extends Controller
         $this->authorize('update', $event);
         
         // Check if participant belongs to the event
-        if ($participant->event_id !== $event->id) {
-            abort(404);
+        if ($participant->event_id != $event->id) {
+            abort(403, 'El participante no pertenece a este evento.');
         }
         
         // Check if participant already has attendance record
