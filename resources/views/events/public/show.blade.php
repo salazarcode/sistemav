@@ -112,6 +112,33 @@
                                     <form action="{{ route('events.public.register', $event->slug) }}" method="POST">
                                         @csrf
                                         
+                                        <!-- Type DNI -->
+                                        <div class="mb-6">
+                                            <label for="type_dni" class="block text-sm font-medium text-gray-700">{{ __('Tipo de Identificación:') }}</label>
+                                            <select id="type_dni" name="type_dni" required
+                                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                                <option value="">{{ __('Seleccionar...') }}</option>
+                                                <option value="V" {{ old('type_dni') == 'V' ? 'selected' : '' }}>{{ __('V') }}</option>
+                                                <option value="E" {{ old('type_dni') == 'E' ? 'selected' : '' }}>{{ __('E') }}</option>
+                                                <option value="J" {{ old('type_dni') == 'J' ? 'selected' : '' }}>{{ __('J') }}</option>
+                                                <option value="G" {{ old('type_dni') == 'G' ? 'selected' : '' }}>{{ __('G') }}</option>
+                                                <option value="P" {{ old('type_dni') == 'P' ? 'selected' : '' }}>{{ __('P') }}</option>
+                                            </select>
+                                            @error('type_dni')
+                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        
+                                        <!-- DNI -->
+                                        <div class="mb-4">
+                                            <label for="dni" class="block text-sm font-medium text-gray-700">{{ __('Identificación:') }}</label>
+                                            <input type="text" name="dni" id="dni" value="{{ old('dni') }}" required
+                                                class="mt-1 block w-full p-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                                                placeholder="{{ __('Ingresa tu número de identificación') }}">
+                                            @error('dni')
+                                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                            @enderror
+                                        </div>
                                         <!-- Name -->
                                         <div class="mb-4">
                                             <label for="name" class="block text-sm font-medium text-gray-700">{{ __('Nombre:') }}</label>
@@ -176,35 +203,7 @@
                                             @error('birth_date')
                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                             @enderror
-                                        </div>
-                                        
-                                        <!-- Type DNI -->
-                                        <div class="mb-6">
-                                            <label for="type_dni" class="block text-sm font-medium text-gray-700">{{ __('Tipo de Identificación:') }}</label>
-                                            <select id="type_dni" name="type_dni" required
-                                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                                <option value="">{{ __('Seleccionar...') }}</option>
-                                                <option value="V" {{ old('type_dni') == 'V' ? 'selected' : '' }}>{{ __('V') }}</option>
-                                                <option value="E" {{ old('type_dni') == 'E' ? 'selected' : '' }}>{{ __('E') }}</option>
-                                                <option value="J" {{ old('type_dni') == 'J' ? 'selected' : '' }}>{{ __('J') }}</option>
-                                                <option value="G" {{ old('type_dni') == 'G' ? 'selected' : '' }}>{{ __('G') }}</option>
-                                                <option value="P" {{ old('type_dni') == 'P' ? 'selected' : '' }}>{{ __('P') }}</option>
-                                            </select>
-                                            @error('type_dni')
-                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        
-                                        <!-- DNI -->
-                                        <div class="mb-4">
-                                            <label for="dni" class="block text-sm font-medium text-gray-700">{{ __('Identificación:') }}</label>
-                                            <input type="text" name="dni" id="dni" value="{{ old('dni') }}" required
-                                                class="mt-1 block w-full p-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                                                placeholder="{{ __('Ingresa tu número de identificación') }}">
-                                            @error('dni')
-                                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                            @enderror
-                                        </div>
+                                        </div>                   
                                         
                                         <div>
                                             <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

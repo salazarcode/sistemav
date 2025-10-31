@@ -625,15 +625,6 @@
                     </div>
                 @endif
             </div>
-            
-            <div>
-                <h3>Participantes por Nivel Educativo</h3>
-                @if(isset($chartImages['educationChart']))
-                    <div class="chart-container">
-                        <img src="{{ $chartImages['educationChart'] }}" alt="Gráfico de educación">
-                    </div>
-                @endif
-            </div>
         </div>
         
         @if(isset($chartImages['attendanceChart']))

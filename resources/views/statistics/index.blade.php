@@ -266,22 +266,22 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg shadow">
                             <h3 class="text-lg font-semibold text-blue-700">{{ __('Total de Eventos') }}</h3>
-                            <p class="text-3xl font-bold format-number">{{ $totalEvents }}</p>
+                            <p class="text-3xl font-bold">{{ $totalEvents }}</p>
                         </div>
                         
                         <div class="bg-green-50 p-4 rounded-lg shadow">
                             <h3 class="text-lg font-semibold text-green-700">{{ __('Eventos Próximos') }}</h3>
-                            <p class="text-3xl font-bold format-number">{{ $upcomingEvents }}</p>
+                            <p class="text-3xl font-bold ">{{ $upcomingEvents }}</p>
                         </div>
                         
                         <div class="bg-yellow-50 p-4 rounded-lg shadow">
                             <h3 class="text-lg font-semibold text-yellow-700">{{ __('Eventos en Curso') }}</h3>
-                            <p class="text-3xl font-bold format-number">{{ $ongoingEvents }}</p>
+                            <p class="text-3xl font-bold ">{{ $ongoingEvents }}</p>
                         </div>
                         
                         <div class="bg-gray-50 p-4 rounded-lg shadow">
                             <h3 class="text-lg font-semibold text-gray-700">{{ __('Eventos Pasados') }}</h3>
-                            <p class="text-3xl font-bold format-number">{{ $pastEvents }}</p>
+                            <p class="text-3xl font-bold ">{{ $pastEvents }}</p>
                         </div>
                     </div>
                     
@@ -403,12 +403,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="bg-purple-50 p-4 rounded-lg shadow">
                             <h3 class="text-lg font-semibold text-purple-700">{{ __('Total de Participantes') }}</h3>
-                            <p class="text-3xl font-bold format-number">{{ $totalParticipants }}</p>
+                            <p class="text-3xl font-bold">{{ $totalParticipants }}</p>
                         </div>
                         
                         <div class="bg-pink-50 p-4 rounded-lg shadow">
                             <h3 class="text-lg font-semibold text-pink-700">{{ __('Promedio por Evento') }}</h3>
-                            <p class="text-3xl font-bold format-number">{{ $totalEvents > 0 ? round($totalParticipants / $totalEvents, 1) : 0 }}</p>
+                            <p class="text-3xl font-bold">{{ $totalEvents > 0 ? round($totalParticipants / $totalEvents, 1) : 0 }}</p>
                         </div>
                         
                         <div class="bg-indigo-50 p-4 rounded-lg shadow">
@@ -447,17 +447,6 @@
                             <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">{{ __('Participantes por Organización') }}</h2>
                             <div class="chart-container" style="position: relative; height:350px;">
                                 <canvas id="organizationParticipantsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Participantes por Nivel Educativo -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">{{ __('Participantes por Nivel Educativo') }}</h2>
-                            <div class="chart-container" style="position: relative; height:350px;">
-                            <canvas id="educationChart"></canvas>
-                        </div>
                         </div>
                     </div>
                 </div>

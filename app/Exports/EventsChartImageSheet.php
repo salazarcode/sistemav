@@ -86,11 +86,6 @@ class EventsChartImageSheet implements WithTitle, WithDrawings
         if (isset($this->data['participantsByInstitution']) && !empty($this->data['participantsByInstitution'])) {
             $this->generateParticipantsByInstitutionChart();
         }
-        
-        // 9. Gráfico de participantes por nivel educativo (si está disponible)
-        if (isset($this->data['participantsByEducation']) && !empty($this->data['participantsByEducation'])) {
-            $this->generateParticipantsByEducationChart();
-        }
     }
 
     /**
@@ -680,59 +675,6 @@ class EventsChartImageSheet implements WithTitle, WithDrawings
     }
 
     /**
-     * Genera el gráfico de participantes por nivel educativo
-     */
-    private function generateParticipantsByEducationChart()
-    {
-        $educationData = $this->data['participantsByEducation'];
-        
-        $chartConfig = [
-            'type' => 'pie',
-            'data' => [
-                'labels' => array_column($educationData, 'name'),
-                'datasets' => [
-                    [
-                        'data' => array_column($educationData, 'count'),
-                        'backgroundColor' => $this->generateColors(count($educationData))
-                    ]
-                ]
-            ],
-            'options' => [
-                'title' => [
-                    'display' => true,
-                    'text' => 'Participantes por Nivel Educativo',
-                    'fontSize' => 18
-                ],
-                'legend' => [
-                    'display' => true,
-                    'position' => 'right'
-                ],
-                'plugins' => [
-                    'datalabels' => [
-                        'display' => true,
-                        'color' => 'white',
-                        'font' => [
-                            'weight' => 'bold',
-                            'size' => 14
-                        ],
-                        'formatter' => "function(value, context) { return context.chart.data.labels[context.dataIndex] + '\\n' + value + ' participantes'; }"
-                    ]
-                ],
-                'layout' => [
-                    'padding' => [
-                        'left' => 50,
-                        'right' => 50,
-                        'top' => 50,
-                        'bottom' => 50
-                    ]
-                ]
-            ]
-        ];
-
-        $this->downloadChartImage($chartConfig, 'participants_by_education');
-    }
-
-    /**
      * Genera colores aleatorios para los gráficos
      */
     private function generateColors($count)
@@ -840,7 +782,6 @@ class EventsChartImageSheet implements WithTitle, WithDrawings
             'participants_by_gender' => 'Participantes por Género',
             'participants_by_age' => 'Participantes por Edad',
             'participants_by_institution' => 'Participantes por Institución',
-            'participants_by_education' => 'Participantes por Nivel Educativo',
             'category_participants' => 'Participantes por Categoría',
             'month_participants' => 'Participantes por Mes',
             'attendance_rate_by_category' => 'Tasa de Asistencia por Categoría',
@@ -852,7 +793,6 @@ class EventsChartImageSheet implements WithTitle, WithDrawings
             'genderChart' => 'Participantes por Género',
             'ageChart' => 'Participantes por Edad',
             'institutionParticipantsChart' => 'Participantes por Institución',
-            'educationChart' => 'Participantes por Nivel Educativo',
             'categoryParticipantsChart' => 'Participantes por Categoría',
             'monthParticipantsChart' => 'Participantes por Mes',
             'attendanceChart' => 'Tasa de Asistencia por Categoría'
