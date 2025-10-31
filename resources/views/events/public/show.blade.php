@@ -134,7 +134,12 @@
                                             <label for="dni" class="block text-sm font-medium text-gray-700">{{ __('Identificación:') }}</label>
                                             <input type="text" name="dni" id="dni" value="{{ old('dni') }}" required
                                                 class="mt-1 block w-full p-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                                                placeholder="{{ __('Ingresa tu número de identificación') }}">
+                                                placeholder="{{ __('Ingresa tu número de identificación') }}"
+                                                pattern="^[0-9]{7,10}$"
+                                                minlength="7"
+                                                maxlength="10"
+                                                title="{{ __('Debe contener entre 7 y 10 dígitos') }}"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                             @error('dni')
                                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                             @enderror
@@ -163,7 +168,27 @@
                                         <div class="mb-4">
                                             <label for="phone" class="block text-sm font-medium text-gray-700">{{ __('Teléfono:') }}</label>
                                             <input type="text" id="phone" name="phone" value="{{ old('phone') }}" required
-                                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                pattern="^(412|414|416|424|426)-[0-9]{7}$"
+                                                placeholder="424-1234567"
+                                                title="{{ __('Formato: 424-1234567') }}"
+                                                maxlength="11"
+                                                oninput="validatePhone(this)"
+                                                onblur="validatePhone(this)">
+                                            <script>
+                                                function validatePhone(input) {
+                                                    const pattern = /^(412|414|416|424|426)-[0-9]{7}$/;
+                                                    if (input.value && !pattern.test(input.value)) {
+                                                        input.style.borderColor = '#ef4444';
+                                                        input.style.boxShadow = '0 0 0 1px #ef4444';
+                                                        input.setCustomValidity('{{ __("Formato: 424-1234567") }}');
+                                                    } else {
+                                                        input.style.borderColor = '#d1d5db';
+                                                        input.style.boxShadow = '';
+                                                        input.setCustomValidity('');
+                                                    }
+                                                }
+                                            </script>
                                             @error('phone')
                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                             @enderror

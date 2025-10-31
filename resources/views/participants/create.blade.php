@@ -12,7 +12,34 @@
                     <form action="{{ route('events.participants.store', $event) }}" method="POST">
                         @csrf
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">                       
+                            
+                            <!-- Type DNI -->
+                            <div>
+                                <x-input-label for="type_dni" :value="__('Tipo de Identificación:')" />
+                                <select id="type_dni" name="type_dni" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                    <option value="">{{ __('Seleccionar') }}</option>
+                                    <option value="V" {{ old('type_dni') == 'V' ? 'selected' : '' }}>{{ __('V') }}</option>
+                                    <option value="E" {{ old('type_dni') == 'E' ? 'selected' : '' }}>{{ __('E') }}</option>
+                                    <option value="J" {{ old('type_dni') == 'J' ? 'selected' : '' }}>{{ __('J') }}</option>
+                                    <option value="G" {{ old('type_dni') == 'G' ? 'selected' : '' }}>{{ __('G') }}</option>
+                                    <option value="P" {{ old('type_dni') == 'P' ? 'selected' : '' }}>{{ __('P') }}</option>
+                                </select>
+                                <x-input-error :messages="$errors->get('type_dni')" class="mt-2" />
+                            </div>
+                            
+                            <!-- DNI -->
+                            <div>
+                                <x-input-label for="dni" :value="__('Identificación:')" />
+                                <x-text-input id="dni" class="block mt-1 w-full" type="text" name="dni" :value="old('dni')" required 
+                                    placeholder="{{ __('Ingresa tu número de identificación') }}"
+                                    pattern="^[0-9]{7,10}$"
+                                    minlength="7"
+                                    maxlength="10"
+                                    title="{{ __('Debe contener entre 7 y 10 dígitos') }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                                <x-input-error :messages="$errors->get('dni')" class="mt-2" />
+                            </div>
                             <!-- Name -->
                             <div>
                                 <x-input-label for="name" :value="__('Nombre:')" />
@@ -30,7 +57,28 @@
                             <!-- Phone -->
                             <div>
                                 <x-input-label for="phone" :value="__('Teléfono:')" />
-                                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+                                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required 
+                                    pattern="^(412|414|416|424|426)-[0-9]{7}$"
+                                    placeholder="424-1234567"
+                                    title="{{ __('Formato: 424-1234567') }}"
+                                    maxlength="11"
+                                    oninput="validatePhone(this)"
+                                    onblur="validatePhone(this)" />
+
+                                <script>
+                                    function validatePhone(input) {
+                                        const pattern = /^(412|414|416|424|426)-[0-9]{7}$/;
+                                        if (input.value && !pattern.test(input.value)) {
+                                            input.style.borderColor = '#ef4444';
+                                            input.style.boxShadow = '0 0 0 1px #ef4444';
+                                            input.setCustomValidity('{{ __("Formato: 424-1234567") }}');
+                                        } else {
+                                            input.style.borderColor = '#d1d5db';
+                                            input.style.boxShadow = '';
+                                            input.setCustomValidity('');
+                                        }
+                                    }
+                                </script>
                                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                             </div>
                             
@@ -58,27 +106,6 @@
                                 <x-input-label for="birth_date" :value="__('Fecha de Nacimiento:')" />
                                 <x-text-input id="birth_date" class="block mt-1 w-full" type="date" name="birth_date" :value="old('birth_date')" required max="{{ date('Y-m-d') }}" />
                                 <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
-                            </div>
-                            
-                            <!-- Type DNI -->
-                            <div>
-                                <x-input-label for="type_dni" :value="__('Tipo de Identificación:')" />
-                                <select id="type_dni" name="type_dni" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                                    <option value="">{{ __('Seleccionar') }}</option>
-                                    <option value="V" {{ old('type_dni') == 'V' ? 'selected' : '' }}>{{ __('V') }}</option>
-                                    <option value="E" {{ old('type_dni') == 'E' ? 'selected' : '' }}>{{ __('E') }}</option>
-                                    <option value="J" {{ old('type_dni') == 'J' ? 'selected' : '' }}>{{ __('J') }}</option>
-                                    <option value="G" {{ old('type_dni') == 'G' ? 'selected' : '' }}>{{ __('G') }}</option>
-                                    <option value="P" {{ old('type_dni') == 'P' ? 'selected' : '' }}>{{ __('P') }}</option>
-                                </select>
-                                <x-input-error :messages="$errors->get('type_dni')" class="mt-2" />
-                            </div>
-                            
-                            <!-- DNI -->
-                            <div>
-                                <x-input-label for="dni" :value="__('Identificación:')" />
-                                <x-text-input id="dni" class="block mt-1 w-full" type="text" name="dni" :value="old('dni')" required />
-                                <x-input-error :messages="$errors->get('dni')" class="mt-2" />
                             </div>
                         </div>
                         
