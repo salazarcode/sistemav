@@ -421,7 +421,7 @@ class StatisticsController extends Controller
         // Obtener eventos con datos adicionales para los gráficos
         $eventsWithData = Event::whereIn('id', $eventIds)
             ->with(['categories', 'participants' => function($query) {
-                $query->select('id', 'event_id', 'attendance', 'gender', 'age', 'institution');
+                $query->select('id', 'event_id', 'attendance', 'gender', 'institution');
             }])
             ->get();
             

@@ -104,15 +104,6 @@ class EventsSummarySheet implements FromArray, WithTitle, WithHeadings, WithStyl
             $rows[] = ['', ''];
             $rows[] = ['', ''];
         }
-
-        // 7. Participantes por nivel educativo (si está disponible)
-        if (isset($this->data['participantsByEducation']) && !empty($this->data['participantsByEducation'])) {
-            $rows[] = ['Participantes por Nivel Educativo', ''];
-            
-            foreach ($this->data['participantsByEducation'] as $education) {
-                $rows[] = [$education['name'], $education['count']];
-            }
-        }
         
         return $rows;
     }
